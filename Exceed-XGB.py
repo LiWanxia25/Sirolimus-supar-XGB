@@ -24,8 +24,8 @@ with col1:
     # 输入表单
     with st.form("input_form"):
         Height = st.number_input("Height (cm):", min_value=50, max_value=180, value=120)
-        PLT = st.number_input("PLT (109/L):", min_value=0, max_value=10, value=250)
-        ALT = st.number_input("ALT (U/L):", min_value=0, max_value=12, value=100)
+        PLT = st.number_input("PLT (109/L):", min_value=0, max_value=250, value=10)
+        ALT = st.number_input("ALT (U/L):", min_value=0, max_value=120, value=100)
         HDL = st.number_input("HDL (mmol/L):", min_value=0.00, max_value=3.00, value=1.30)
         TC = st.number_input("TC (mmol/L):", min_value=0.00, max_value=10.00, value=4.00)
         submitted = st.form_submit_button("Predict")
