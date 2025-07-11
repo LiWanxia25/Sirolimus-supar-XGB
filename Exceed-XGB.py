@@ -62,7 +62,7 @@ if submitted:
         if predicted_class == 1:
             st.error(f"Supra-therapeutic Risk: {prob_class1:.1%} (High Risk)")
         else:
-            st.success(f"Supra-therapeutic Risk:: {prob_class1:.1%} (Low Risk)") 
+            st.success(f"Supra-therapeutic Risk: {prob_class1:.1%} (Low Risk)") 
         
         st.write(f"**Risk Threshold:** {OPTIMAL_THRESHOLD:.0%} (optimized for clinical utility)")
 
