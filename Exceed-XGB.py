@@ -74,7 +74,11 @@ if submitted:
 
 
         # 创建SHAP解释器
-        explainer_shap = shap.TreeExplainer(model)
+        #explainer_shap = shap.TreeExplainer(model)
+        try:
+            explainer_shap = shap.TreeExplainer(model, feature_perturbation="interventional")
+        except:
+            explainer_shap = shap.TreeExplainer(model, model_output="probability")
 
         # 获取SHAP值
         shap_values = explainer_shap.shap_values(pd.DataFrame(final_features_df,columns=feature_names))
@@ -102,4 +106,5 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
