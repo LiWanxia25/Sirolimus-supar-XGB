@@ -8,10 +8,8 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
 # Load the model
-model = joblib.load('supar_model_xgb.pkl')
+model = joblib.load('model_xgb.json')
 scaler = joblib.load('supar_scaler.pkl') 
-print("Model type:", type(model))  # 应该是 <class 'xgboost.sklearn.XGBClassifier'>
-print("Model attributes:", dir(model))  # 检查是否有异常属性
 
 # Streamlit user interface
 st.title("Sirolimus Supra-therapeutic Risk Predictor")
@@ -105,6 +103,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
