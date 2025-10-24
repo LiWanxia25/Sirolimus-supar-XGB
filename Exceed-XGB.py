@@ -11,6 +11,14 @@ from sklearn.preprocessing import StandardScaler
 model = joblib.load('supar_model_xgb.pkl')
 scaler = joblib.load('supar_scaler.pkl') 
 
+# 修复 base_score（如果它是字符串）
+if isinstance(model.base_score, str):
+    # 去除可能的方括号并转换为浮点数
+    model.base_score = float(model.base_score.strip('[]'))
+elif isinstance(model.base_score, np.ndarray):
+    # 如果 base_score 是 numpy 数组（如多分类任务），取第一个值
+    model.base_score = float(model.base_score[0])
+
 # Streamlit user interface
 st.title("Sirolimus Supra-therapeutic Risk Predictor")
 
@@ -102,6 +110,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
