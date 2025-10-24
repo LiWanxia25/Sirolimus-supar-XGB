@@ -71,43 +71,36 @@ if submitted:
         # 添加分隔线
         st.markdown("---")
         
-        # 再显示SHAP解释图
-        st.subheader("SHAP Explanation")
-
-        print("Model type:", type(model))  # 应该是 <class 'xgboost.sklearn.XGBClassifier'>
-        print("Model attributes:", dir(model))  # 检查是否有异常属性
-        # 创建SHAP解释器
-        #explainer_shap = shap.TreeExplainer(model)
-        explainer_shap = shap.TreeExplainer(model, feature_perturbation="interventional")
-
-        # 获取SHAP值
-        shap_values = explainer_shap.shap_values(pd.DataFrame(final_features_df,columns=feature_names))
-
-        # 确保获取到的shap_values不是None或空值
-        if shap_values is None:
-            st.error("SHAP values could not be calculated. Please check the model and input data.")
-        else:
-            # 如果模型返回多个类别的SHAP值（例如分类模型），取相应类别的SHAP值
-            if isinstance(shap_values, list):
-                shap_values_class = shap_values[0]  # 选择第一个类别的SHAP值
-            else:
-                shap_values_class = shap_values
-   
-      # 将标准化前的原始数据存储在变量中
-        original_feature_values = pd.DataFrame(features, columns=feature_names)
-        # 创建瀑布图
-        fig, ax = plt.subplots()
-        shap.plots.waterfall(shap.Explanation(values=shap_values_class[0], 
-                                               base_values=explainer_shap.expected_value,
-                                               data=original_feature_values.iloc[0],
-                                               feature_names=original_feature_values.columns.tolist()))
-            
-        # 调整图表显示
+                # 替换SHAP解释图为特征重要性条形图
+        st.subheader("Feature Importance Ranking")
+        
+        # 获取特征重要性
+        importance_scores = model.feature_importances_
+        
+        # 创建特征重要性条形图
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        # 排序特征重要性
+        indices = np.argsort(importance_scores)[::-1]
+        sorted_features = [feature_names[i] for i in indices]
+        sorted_scores = [importance_scores[i] for i in indices]
+        
+        # 绘制水平条形图
+        bars = ax.barh(range(len(sorted_features)), sorted_scores)
+        ax.set_yticks(range(len(sorted_features)))
+        ax.set_yticklabels(sorted_features)
+        ax.set_xlabel('Importance Score')
+        ax.set_title('Feature Importance Ranking')
+        ax.invert_yaxis()  # 最重要的特征在顶部
+        
+        # 在条形上添加数值
+        for i, bar in enumerate(bars):
+            width = bar.get_width()
+            ax.text(width + 0.001, bar.get_y() + bar.get_height()/2, 
+                   f'{width:.3f}', ha='left', va='center')
+        
         plt.tight_layout()
         st.pyplot(fig)
-        
-
-
 
 
 
