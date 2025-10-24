@@ -74,7 +74,8 @@ if submitted:
         # 再显示SHAP解释图
         st.subheader("SHAP Explanation")
 
-
+        print("Model type:", type(model))  # 应该是 <class 'xgboost.sklearn.XGBClassifier'>
+        print("Model attributes:", dir(model))  # 检查是否有异常属性
         # 创建SHAP解释器
         explainer_shap = shap.TreeExplainer(model)        
 
@@ -104,6 +105,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
