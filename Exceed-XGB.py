@@ -77,7 +77,8 @@ if submitted:
         print("Model type:", type(model))  # 应该是 <class 'xgboost.sklearn.XGBClassifier'>
         print("Model attributes:", dir(model))  # 检查是否有异常属性
         # 创建SHAP解释器
-        explainer_shap = shap.TreeExplainer(model)        
+        #explainer_shap = shap.TreeExplainer(model)
+        explainer_shap = shap.TreeExplainer(model, feature_perturbation="interventional")
 
         # 获取SHAP值
         shap_values = explainer_shap.shap_values(pd.DataFrame(final_features_df,columns=feature_names))
@@ -105,6 +106,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
