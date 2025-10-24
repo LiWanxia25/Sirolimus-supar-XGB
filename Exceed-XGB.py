@@ -10,7 +10,7 @@ import xgboost as xgb
 
 # Load the model
 model = xgb.XGBClassifier()
-model.load_model('model_xgb.json')
+model.load_model('model_xgb2.json')
 scaler = joblib.load('supar_scaler.pkl') 
 
 # Streamlit user interface
@@ -105,6 +105,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
