@@ -86,7 +86,7 @@ if submitted:
             except Exception as e2:
                 print(f"❌ 两种方法都失败: {e2}")
                 # 可以考虑在这里返回或使用其他可视化方法
-                return
+                #return
 
         
 
@@ -116,6 +116,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
