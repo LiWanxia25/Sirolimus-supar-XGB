@@ -6,6 +6,7 @@ import pandas as pd
 import shap
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
+import xgboost as xgb
 
 # Load the model
 model = xgb.XGBClassifier()
@@ -104,6 +105,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
