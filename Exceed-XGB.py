@@ -74,21 +74,7 @@ if submitted:
 
 
         # 创建SHAP解释器
-        #explainer_shap = shap.TreeExplainer(model)
-        try:
-            explainer_shap = shap.TreeExplainer(model, feature_perturbation="interventional")
-            print("✅ SHAP解释器创建成功（使用interventional模式）")
-        except Exception as e1:
-            print(f"⚠️ 第一种方法失败: {e1}")
-            try:
-                explainer_shap = shap.TreeExplainer(model, model_output="probability")
-                print("✅ SHAP解释器创建成功（使用probability模式）")
-            except Exception as e2:
-                print(f"❌ 两种方法都失败: {e2}")
-                # 可以考虑在这里返回或使用其他可视化方法
-                #return
-
-        
+        explainer_shap = shap.TreeExplainer(model)        
 
         # 获取SHAP值
         shap_values = explainer_shap.shap_values(pd.DataFrame(final_features_df,columns=feature_names))
@@ -116,6 +102,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
