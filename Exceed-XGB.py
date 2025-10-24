@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
 # Load the model
-model = joblib.load('model_xgb.json')
+model = xgb.XGBClassifier()
+model.load_model('model_xgb.json')
 scaler = joblib.load('supar_scaler.pkl') 
 
 # Streamlit user interface
@@ -103,6 +104,7 @@ if submitted:
         plt.tight_layout()
         st.pyplot(fig)
         
+
 
 
 
